@@ -1,0 +1,15 @@
+{
+  "name": "main",
+  "version-string": "latest",
+  "dependencies": [
+    "fmt",
+    "gtest",
+    "eigen3",
+    "argparse",
+    "spdlog",
+    "protobuf",
+    "nlohmann-json",
+    "paho-mqtt",
+    "asio"
+  ]
+}
