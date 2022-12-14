@@ -1,10 +1,10 @@
 // main.cpp
-#include <sqlite3.h>
-#include <stdio.h>
+#include <iostream>
 
-// main function!
+using namespace std;
+
 int main()
 {
-    printf("%s\n", sqlite3_libversion());
+    cout<<'hello world'<<endl;
     return 0;
 }
