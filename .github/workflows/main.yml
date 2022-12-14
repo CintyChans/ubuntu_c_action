@@ -27,14 +27,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest]
         include:
           - os: windows-latest
             vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
-          - os: ubuntu-latest
-            vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
-          - os: macos-latest
-            vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
+#           - os: ubuntu-latest
+#             vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
+#           - os: macos-latest
+#             vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
 
     steps:
       - uses: actions/checkout@v3
@@ -63,7 +63,6 @@ jobs:
       - name: Run CMake with Ninja
         uses: lukka/run-cmake@v10
         with:
-          cmakeListsTxtPath: '${{ github.workspace }}/cmakepresets/CMakeLists.txt'
           configurePreset: 'ninja-multi-vcpkg'
           buildPreset: 'ninja-multi-vcpkg'
 
