@@ -1,36 +1,8 @@
-# CMakeLists.txt
 cmake_minimum_required(VERSION 3.0)
 project(test)
 
-# Find dependencies provided by vcpkg (via vcpkg.cmake)
-find_package(fmt CONFIG REQUIRED)
-find_package(GTest CONFIG REQUIRED)
-find_package(Eigen3 CONFIG REQUIRED)
-find_package(argparse CONFIG REQUIRED)
-find_package(spdlog CONFIG REQUIRED)
-find_package(nlohmann_json CONFIG REQUIRED)
-find_package(asio CONFIG REQUIRED)
-find_package(eclipse-paho-mqtt-c CONFIG REQUIRED)
-find_package(protobuf CONFIG REQUIRED)
-# main target
+find_package(unofficial-sqlite3 CONFIG REQUIRED)
+
 add_executable(main)
-target_sources(main PRIVATE src/main.cpp)
-target_link_libraries(main PRIVATE unofficial::sqlite3::sqlite3 fmt::fmt)
-set_property(TARGET main PROPERTY CXX_STANDARD 20)
-
-# tests target
-add_executable(tests)
-target_sources(tests PRIVATE src/main.cpp)
-target_link_libraries(resr PRIVATE GTest::gmock GTest::gtest GTest::gmock_main GTest::gtest_main)
-target_link_libraries(resr PRIVATE Eigen3::Eigen)
-target_link_libraries(resr PRIVATE argparse::argparse)
-target_link_libraries(resr PRIVATE fmt::fmt)
-target_link_libraries(resr PRIVATE spdlog::spdlog spdlog::spdlog_header_only)
-target_link_libraries(resr PRIVATE protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
-target_link_libraries(resr PRIVATE nlohmann_json::nlohmann_json)
-target_link_libraries(resr PRIVATE asio asio::asio)
-target_link_libraries(resr PRIVATE eclipse-paho-mqtt-c::paho-mqtt3a eclipse-paho-mqtt-c::paho-mqtt3c eclipse-paho-mqtt-c::paho-mqtt3as eclipse-paho-mqtt-c::paho-mqtt3cs)
-
-set_property(TARGET tests PROPERTY CXX_STANDARD 20)
-enable_testing()
-add_test(tests tests)
+target_sources(main PRIVATE test.cpp)
+target_link_libraries(main PRIVATE unofficial::sqlite3::sqlite3)
