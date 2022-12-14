@@ -1,24 +1,54 @@
-
-name: hosted-ninja-vcpkg_submod-autocache
-on: [push]
+name: hosted-ninja-vcpkg-install-autocache
+on: [push, workflow_dispatch]
 
 jobs:
-  buildme:
-    runs-on: ${{ matrix.config.os }}
+  job:
+    name: ${{ matrix.os }}-${{ github.workflow }}
+    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        config:
-        - os: ubuntu-20.04
-          vcpkg_triplet: x64-linux-release
-        - os: macos-11
-          vcpkg_triplet: x64-osx-release
-        - os: windows-2019
-          vcpkg_triplet: x64-windows-release
+        os: [windows-latest]
+        include:
+          - os: windows-latest
+            vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
+#           - os: ubuntu-latest
+#             vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
+#           - os: macos-latest
+#             vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
+
     steps:
-      - name: vcpkg build
-        uses: johnwason/vcpkg-action@v3
+      - uses: actions/checkout@v3
         with:
-          pkgs: boost-date-time
-          triplet: ${{ matrix.config.vcpkg_triplet }}
-          cache-key: ${{ matrix.config.os }}
-          revision: master
+          submodules: true
+
+      - uses: lukka/get-cmake@latest
+      - name: List $RUNNER_WORKSPACE before build
+        run: find $RUNNER_WORKSPACE
+        shell: bash
+
+      - name: Restore artifacts, or run vcpkg, build (and cache artifacts as post step)
+        uses: lukka/run-vcpkg@v10
+        id: runvcpkg
+        with:
+          vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
+          vcpkgGitCommitId: '${{ matrix.vcpkgCommitId }}'
+          # Run vcpkg with the command specified by the `runVcpkgFormatString` input.
+          runVcpkgInstall: true
+          vcpkgJsonGlob: '**/cmakepresets/vcpkg.json'
+          appendedCacheKey: vcpkginstall
+
+      - name: Prints output of run-vcpkg's action.
+        run: echo "root='${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_ROOT_OUT }}', triplet='${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_DEFAULT_TRIPLET_OUT }}' "
+
+      - name: Run CMake with Ninja
+        uses: lukka/run-cmake@v10
+        with:
+          cmakeListsTxtPath: '${{ github.workspace }}/cmakepresets/CMakeLists.txt'
+          configurePreset: 'ninja-multi-vcpkg'
+          buildPreset: 'ninja-multi-vcpkg'
+
+      - name: List $RUNNER_WORKSPACE after build
+        run: find $RUNNER_WORKSPACE
+        shell: bash
+
