@@ -10,6 +10,7 @@ set(CMAKE_CXX_FLAGS"${CMAKE_CXX_FLAGS} /std:c++17")
 set(nlohmann-json_IMPLICIT_CONVERSIONS OFF)
 add_executable(main)
 target_sources(main PRIVATE test.cpp)
+
 find_package(GTest CONFIG REQUIRED)
 target_link_libraries(main PRIVATE GTest::gmock GTest::gtest GTest::gmock_main GTest::gtest_main)
 
@@ -34,8 +35,6 @@ target_link_libraries(main PRIVATE nlohmann_json::nlohmann_json)
 find_package(asio CONFIG REQUIRED)
 target_link_libraries(main PRIVATE asio asio::asio)
 
-
 find_package(eclipse-paho-mqtt-c CONFIG REQUIRED)
-target_link_libraries(main PRIVATE eclipse-paho-mqtt-c::paho-mqtt3a-static eclipse-paho-mqtt-c::paho-mqtt3c-static eclipse-paho-mqtt-c::paho-mqtt3as-static eclipse-paho-mqtt-c::paho-mqtt3cs-static)
-
+target_link_libraries(main PRIVATE eclipse-paho-mqtt-c::paho-mqtt3a eclipse-paho-mqtt-c::paho-mqtt3c eclipse-paho-mqtt-c::paho-mqtt3as eclipse-paho-mqtt-c::paho-mqtt3cs)
 set_property(TARGET main PROPERTY CXX_STANDARD 20)
