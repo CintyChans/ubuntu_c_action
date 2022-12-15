@@ -25,8 +25,8 @@ target_link_libraries(main PRIVATE fmt::fmt)
 find_package(spdlog CONFIG REQUIRED)
 target_link_libraries(main PRIVATE spdlog::spdlog spdlog::spdlog_header_only)
 
-# find_package(protobuf CONFIG REQUIRED)
-# target_link_libraries(main PRIVATE protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
+find_package(protobuf CONFIG REQUIRED)
+target_link_libraries(main PRIVATE protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
 
 find_package(nlohmann_json CONFIG REQUIRED)
 target_link_libraries(main PRIVATE nlohmann_json::nlohmann_json)
@@ -34,8 +34,8 @@ target_link_libraries(main PRIVATE nlohmann_json::nlohmann_json)
 find_package(asio CONFIG REQUIRED)
 target_link_libraries(main PRIVATE asio asio::asio)
 
-find_package(eclipse-paho-mqtt-c CONFIG REQUIRED)
-target_link_libraries(main PRIVATE eclipse-paho-mqtt-c::paho-mqtt3a eclipse-paho-mqtt-c::paho-mqtt3c eclipse-paho-mqtt-c::paho-mqtt3as eclipse-paho-mqtt-c::paho-mqtt3cs)
 
+find_package(eclipse-paho-mqtt-c CONFIG REQUIRED)
+target_link_libraries(main PRIVATE eclipse-paho-mqtt-c::paho-mqtt3a-static eclipse-paho-mqtt-c::paho-mqtt3c-static eclipse-paho-mqtt-c::paho-mqtt3as-static eclipse-paho-mqtt-c::paho-mqtt3cs-static)
 
 set_property(TARGET main PROPERTY CXX_STANDARD 20)
