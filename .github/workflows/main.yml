@@ -12,13 +12,13 @@ jobs:
         include:
           - os: "windows-2019"
             vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
-            cmakelist: '/cmakepresets/CMakeList.txt'
+            cmakelist: 'cmakepresets/CMakeList.txt'
           - os: "ubuntu-20.04"
             vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
-            cmakelist: '/cmakepresets/CMakeLists.txt'
+            cmakelist: 'cmakepresets/CMakeLists.txt'
           - os: "macos-10.15"
             vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
-            cmakelist: '/cmakepresets/CMakeLists.txt'
+            cmakelist: 'cmakepresets/CMakeLists.txt'
 
     steps:
       - uses: actions/checkout@v3
