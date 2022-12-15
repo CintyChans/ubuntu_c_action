@@ -21,7 +21,11 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: true
-
+      - name: Install compiler
+        id: install_cc
+        uses: rlalik/setup-cpp-compiler@master
+        with:
+          compiler: gcc-9.5
           
       - uses: lukka/get-cmake@latest
       - name: List $RUNNER_WORKSPACE before build
@@ -57,4 +61,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-${{ matrix.os }}
-          path: ./cmakepresets/build
+          path: ./cmakepresets/builds
