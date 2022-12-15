@@ -62,5 +62,11 @@ jobs:
         run: find $RUNNER_WORKSPACE
         shell: bash
         
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ runner.os }} 
+          path: ./
+        
 
 
