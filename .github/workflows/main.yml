@@ -1,4 +1,4 @@
-name: hosted-ninja-vcpkg-install-autocache
+name: hosted-ninja-vcpkg_submod-autocache
 on: [push, workflow_dispatch]
 
 jobs:
@@ -8,20 +8,30 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2019,ubuntu-20.04,macos-10.15]
+        os: [ubuntu-20.04, macos-10.15, windows-latest]
         include:
-          - os: windows-2019
+          - os: "windows-latest"
             vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
-          - os: ubuntu-20.04
+            compiler: "msvc2019"
+          - os: "ubuntu-20.04"
             vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
-          - os: macos-10.15
+            compolier: "gcc9.5"
+          - os: "macos-10.15"
             vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
+            compolier: "clang"
 
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: true
-
+      - name: Setup Cpp
+        uses: aminya/setup-cpp@v1
+        with:
+          compiler: ${{ matrix.compiler }}
+          vcvarsall: ${{ contains(matrix.os, 'windows') }}
+          cppcheck: true
+          clangtidy: true # instead of `true`, which chooses the default version, you can pass a specific version.
+          
       - uses: lukka/get-cmake@latest
       - name: List $RUNNER_WORKSPACE before build
         run: find $RUNNER_WORKSPACE
@@ -51,11 +61,6 @@ jobs:
       - name: List $RUNNER_WORKSPACE after build
         run: find $RUNNER_WORKSPACE
         shell: bash
-      
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ runner.os }} 
-          path: ./
+        
 
 
