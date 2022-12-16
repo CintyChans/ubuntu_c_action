@@ -11,11 +11,11 @@ jobs:
     name: set
     runs-on: [ubuntu-20.04]
     steps:
-      - name: Set up GCC
-        uses: egor-tensin/setup-gcc@v1
-        with:
-          version: 9.5.0
-          platform: x64
+     - name: Setup Cpp
+       uses: aminya/setup-cpp@v1
+       with:
+          compiler：gcc
+
           
-      - name: gcc version
-        run: gcc --version
+     - name: gcc version
+       run: gcc --version
