@@ -1,0 +1,19 @@
+name: hosted-ninja-vcpkg_submod-autocache
+
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  job:
+    name: set
+    runs-on: [ubuntu-20.04]
+    steps:
+      - name: Set up GCC
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          version: 9.5
+          platform: x64
+        run: gcc --version
