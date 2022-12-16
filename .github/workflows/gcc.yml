@@ -16,4 +16,6 @@ jobs:
         with:
           version: 9.5
           platform: x64
+          
+      - name: gcc version
         run: gcc --version
