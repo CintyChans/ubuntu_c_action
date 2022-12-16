@@ -19,3 +19,4 @@ jobs:
           
       - name: gcc
          run： whereis gcc
+ 
