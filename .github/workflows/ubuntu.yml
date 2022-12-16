@@ -15,17 +15,6 @@ jobs:
             vcpkgCommitId: '253704407ae68efa37bf8f5b59b3e06dd40d3d3f'
 
 
-
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: true
-      - name: Set up GCC
-        uses: egor-tensin/setup-gcc@v1
-        with:
-          version: 9.0
-          platform: x64
           
       - uses: lukka/get-cmake@latest
       - name: List $RUNNER_WORKSPACE before build
