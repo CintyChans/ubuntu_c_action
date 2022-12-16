@@ -1,5 +1,5 @@
 
-name: ubuntu_macos
+name: ubuntu20.04
 on: [push, workflow_dispatch]
 
 jobs:
