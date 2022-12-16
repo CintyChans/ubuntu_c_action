@@ -1,3 +1,4 @@
+
 name: hosted-ninja-vcpkg_submod-autocache
 
 
@@ -11,11 +12,11 @@ jobs:
     name: set
     runs-on: [ubuntu-20.04]
     steps:
-     - name: Setup Cpp
-       uses: aminya/setup-cpp@v1
-       with:
-          compiler: gcc
+      - name: Set up GCC
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          version: 9.0
+          platform: x64
 
-          
-     - name: gcc version
-       run: whereis gcc
+      - name: gcc version
+        run: whereis gcc
